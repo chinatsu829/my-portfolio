@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git clone:*)",
+      "Bash(printf '\\\\n---\\\\n\\\\n## リンク・連絡先\\\\n\\\\n- note: https://note.com/chi72dayo\\\\n')",
+      "Bash(code:*)",
+      "Bash(/Users/mikamichinatsu/my-portfolio/my-portfolio/content/work-timecard.md:*)",
+      "Bash(open:*)",
+      "Bash(npx puppeteer-core:*)",
+      "Bash(npx puppeteer:*)",
+      "Bash(node:*)",
+      "WebSearch",
+      "Bash(claude plugin:*)",
+      "mcp__claude_ai_Figma__whoami",
+      "mcp__claude_ai_Figma__use_figma",
+      "Bash(while IFS= read -r line)",
+      "Read(//private/tmp/**)",
+      "Bash(python3:*)",
+      "Bash(sips:*)"
+    ]
+  }
+}

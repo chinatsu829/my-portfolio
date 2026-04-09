@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>取引先マスタ統合 | Chinatsu Mikami</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --color-background: #FDFCFB;
+      --color-primary: #6366F1;
+      --color-text-main: #2F3333;
+      --color-text-sub: #6B7280;
+      --color-border: #F1F1F1;
+      --color-surface: #FFFFFF;
+    }
+
+    body {
+      background-color: var(--color-background);
+      color: var(--color-text-main);
+      font-family: 'Noto Sans JP', sans-serif;
+      line-height: 1.7;
+    }
+
+    .section-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-left: 80px;
+      padding-right: 80px;
+    }
+
+    .section-padding { padding-top: 80px; padding-bottom: 80px; }
+
+    .tag {
+      display: inline-block;
+      background-color: #f3f4f6;
+      color: var(--color-text-sub);
+      padding: 2px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .img-placeholder {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background-color: #f3f4f6;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-sub);
+      font-size: 12px;
+    }
+
+    .accordion-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-primary);
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      margin-top: 12px;
+    }
+    .accordion-trigger:hover { opacity: 0.7; }
+
+    .section-divider { border: none; border-top: 1px solid var(--color-border); margin: 0; }
+
+    .two-col-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .two-col-layout { grid-template-columns: 1fr; }
+    }
+
+    .three-col-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .three-col-layout { grid-template-columns: 1fr; }
+    }
+
+    .eval-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 32px;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .eval-grid { grid-template-columns: 1fr; }
+    }
+
+    h2.section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--color-text-main);
+      margin-bottom: 24px;
+    }
+
+    .label {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--color-text-sub);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th {
+      text-align: left;
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-sub);
+      background-color: #f9f9f9;
+      border-bottom: 1px solid var(--color-border);
+    }
+    td {
+      padding: 12px 16px;
+      color: var(--color-text-main);
+      border-bottom: 1px solid var(--color-border);
+      line-height: 1.6;
+    }
+
+    .step-num {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: var(--color-background);
+      border: 1px solid var(--color-border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--color-text-sub);
+      flex-shrink: 0;
+    }
+    .scroll-img-container::-webkit-scrollbar { width: 4px; }
+    .scroll-img-container::-webkit-scrollbar-track { background: transparent; }
+    .scroll-img-container::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 2px; }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav style="position: sticky; top: 0; z-index: 100; height: 64px; background-color: var(--color-background); display: flex; align-items: center;">
+    <div style="max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 80px; display: flex; align-items: center; justify-content: space-between;">
+      <span style="font-size: 13px; font-weight: 500; color: var(--color-primary); letter-spacing: 0.08em;">CHINATSU MIKAMI</span>
+      <div style="display: flex; align-items: center; gap: 32px;">
+        <a href="#about" style="font-size: 14px; color: var(--color-text-sub); text-decoration: none; transition: color 150ms ease;"
+           onmouseover="this.style.color='var(--color-text-main)'" onmouseout="this.style.color='var(--color-text-sub)'">About</a>
+        <a href="#works" style="font-size: 14px; color: var(--color-text-sub); text-decoration: none; transition: color 150ms ease;"
+           onmouseover="this.style.color='var(--color-text-main)'" onmouseout="this.style.color='var(--color-text-sub)'">Works</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section style="background-color: var(--color-surface); border-bottom: 1px solid var(--color-border);">
+    <div class="section-container" style="padding-top: 64px; padding-bottom: 64px;">
+      <p class="label">Work</p>
+      <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 16px;">
+        <h1 style="font-size: 32px; font-weight: 700; color: var(--color-text-main); line-height: 1.3;">取引先マスタ移行要件</h1>
+        <span style="font-size: 12px; font-weight: 500; color: #6366F1; background: #EEEDFE; padding: 4px 12px; border-radius: 20px; white-space: nowrap;">進行中</span>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px;">
+        <span class="tag">要件定義</span>
+        <span class="tag">情報設計</span>
+        <span class="tag">リサーチ</span>
+        <span class="tag">移行設計</span>
+        <span class="tag">BtoB SaaS</span>
+      </div>
+      <p style="font-size: 13px; color: var(--color-text-sub); margin-bottom: 24px;">期間：約2年　｜　役割：リードデザイナー</p>
+      <div style="width: 100%; aspect-ratio: 16/9; background-color: var(--color-border); border-radius: 8px; overflow: hidden;">
+        <img src="images/work-client-main.png" alt="取引先マスタ移行要件 メインビジュアル"
+             style="width: 100%; height: 100%; object-fit: contain; background: var(--color-background-secondary);"
+             onerror="this.style.display='none'">
+      </div>
+      <div style="margin-top: 40px;">
+        <p style="font-size: 15px; color: var(--color-text-sub); line-height: 1.8;">
+          5つのプロダクトが持つ「取引先情報」を一つのマスタに統合し、ユーザーの取引先管理を楽にするプロジェクト。要件が定まっていない段階から、UIの叩き台を作成し情報を図解・可視化することでチームの目線を揃え、要件検討をリードした。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 概要 -->
+  <section style="background-color: var(--color-surface);">
+    <div class="section-container section-padding">
+
+      <h2 class="section-title">チーム構成と役割</h2>
+      <p style="font-size: 15px; color: var(--color-text-sub); margin-bottom: 32px;">メインデザイナーとして、要件が曖昧な状態からデザインを起点に検討を推進しました。</p>
+      <div>
+        <p style="font-size: 12px; font-weight: 500; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px;">プロジェクトチーム</p>
+        <ul style="font-size: 14px; color: var(--color-text-sub); line-height: 2; margin-bottom: 40px;">
+          <li>PdM 1名</li>
+          <li style="color: var(--color-text-main); font-weight: 500;">リードデザイナー（自分）</li>
+          <li>サポートデザイナー 1名</li>
+        </ul>
+      </div>
+
+      <h2 class="section-title">開始時の状況</h2>
+      <p style="font-size: 15px; color: var(--color-text-sub); line-height: 1.8;">
+        「マスタ化したい」という要望のみが存在し、移行手順やデータの共通ルール、検討すべき観点が誰にも見えていない完全な未着手な状態だった。
+      </p>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- 壁 -->
+  <section>
+    <div class="section-container section-padding">
+      <h2 class="section-title">取引先のマスタ化を阻む「壁」</h2>
+
+      <!-- 壁① -->
+      <div style="margin-bottom: 56px;">
+        <div style="border-left: 2px solid var(--color-primary); padding-left: 16px; margin-bottom: 24px;">
+          <p class="label">壁 ①</p>
+          <p style="font-size: 16px; font-weight: 700; color: var(--color-text-main); margin-bottom: 8px;">プロダクトごとの情報構造のバラつき（定義の不一致）</p>
+          <p style="font-size: 14px; color: var(--color-text-sub); line-height: 1.7;">5つのプロダクトで「取引先」の情報構造が全く異なっており、UIデザインや今後必要な機能を検討するには、まず実装アプローチを決める必要があった。</p>
+        </div>
+
+        <div style="padding-left: 16px;">
+          <p class="label" style="color: var(--color-primary); margin-bottom: 16px;">やったこと</p>
+
+          <!-- 解決策1 -->
+          <div>
+            <p style="font-size: 14px; font-weight: 500; color: var(--color-text-main); margin-bottom: 12px;">1. 各プロダクトの情報構造を可視化し、マスタの構造を定義</p>
+            <div style="padding-left: 8px;">
+              <div class="two-col-layout">
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                  <div>
+                    <p style="font-size: 13px; color: #2F3333; line-height: 1.8;">各プロダクトの取引先が持つ情報を洗い出し、マスタで持つべき情報とプロダクト側で管理すべき権限・機能を整理した。</p>
+                  </div>
+                  <p style="font-size: 16px; color: #6B7280; text-align: center; margin: 0;">↓</p>
+                  <div style="background: #EEEDFE; border-radius: 8px; padding: 16px 20px;">
+                    <p style="font-size: 11px; font-weight: 500; color: #6366F1; margin-bottom: 6px;">チーム全体でマスタの情報構造について共通認識を持てる状態を作った</p>
+                    <p style="font-size: 13px; font-weight: 500; color: #3C3489; line-height: 1.7;">情報の役割が明確になり、設計の前提をチーム全体で揃えることができた。</p>
+                  </div>
+                </div>
+                <div style="width: 100%; aspect-ratio: 16/9; background: var(--color-border); border-radius: 8px; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center;">
+                  <img src="images/work-client-info-structure.png" alt="情報構造の可視化" style="width: 100%; height: 100%; object-fit: contain; background: var(--color-background-secondary); position: absolute; inset: 0;" onerror="this.style.display='none'">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="border-top: 0.5px solid #F1F1F1; margin: 32px 0;"></div>
+
+          <!-- 解決策2 -->
+          <div>
+            <p style="font-size: 14px; font-weight: 500; color: var(--color-text-main); margin-bottom: 12px;">2. 移行アーキテクチャの方針を決める議論の推進</p>
+            <div style="padding-left: 8px;">
+              <div class="two-col-layout">
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                  <div>
+                    <p style="font-size: 13px; color: #2F3333; line-height: 1.8;">「中央集権型」「マイクロフロントエンド」「データ同期」の3つのアプローチのメリット・デメリットを比較し、中央集権型を除外した理由を論理的に整理した。</p>
+                  </div>
+                  <p style="font-size: 16px; color: #6B7280; text-align: center; margin: 0;">↓</p>
+                  <div style="background: #EEEDFE; border-radius: 8px; padding: 16px 20px;">
+                    <p style="font-size: 11px; font-weight: 500; color: #6366F1; margin-bottom: 6px;">1stリリースの方針とその後の方針についてチームで合意した</p>
+                    <p style="font-size: 13px; font-weight: 500; color: #3C3489; line-height: 1.7;">1stリリースはpub/subによるデータ同期でスピードを最優先とする方針で合意。マイクロフロントエンドへの移行も考慮した上で設計を進めることになった。</p>
+                  </div>
+                </div>
+                <div style="width: 100%; aspect-ratio: 16/9; background: var(--color-border); border-radius: 8px; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center;">
+                  <img src="images/work-client-approach.png" alt="実装アプローチの比較検討" style="width: 100%; height: 100%; object-fit: contain; background: var(--color-background-secondary); position: absolute; inset: 0;" onerror="this.style.display='none'">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="border-top: 0.5px solid #F1F1F1; margin: 32px 0;"></div>
+
+          <!-- 解決策3 -->
+          <div>
+            <p style="font-size: 14px; font-weight: 500; color: var(--color-text-main); margin-bottom: 12px;">3. デザインを叩き台として、要件の認識合わせを推進</p>
+            <div style="padding-left: 8px;">
+              <div class="two-col-layout">
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                  <div>
+                    <p style="font-size: 13px; color: #2F3333; line-height: 1.8;">マイクロフロントエンドを採用した場合のデザインイメージを検討し、事業部長との方向性のすり合わせや検討事項の整理に活用した。</p>
+                  </div>
+                  <p style="font-size: 16px; color: #6B7280; text-align: center; margin: 0;">↓</p>
+                  <div style="background: #EEEDFE; border-radius: 8px; padding: 16px 20px;">
+                    <p style="font-size: 11px; font-weight: 500; color: #6366F1; margin-bottom: 6px;">認識のズレを早期に発見し、設計の手戻りを防いだ</p>
+                    <p style="font-size: 13px; font-weight: 500; color: #3C3489; line-height: 1.7;">デザインイメージを起点に議論の解像度が上がり、事業部長との間にあった方向性の認識のズレを早期に発見・解消。仕様が固まる前の段階で合意形成を完了させ、後工程での手戻りリスクを最小化した。</p>
+                  </div>
+                </div>
+                <div style="width: 100%; aspect-ratio: 16/9; background: var(--color-border); border-radius: 8px; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center;">
+                  <img src="images/work-client-mfe-design.png" alt="マイクロフロントエンドのデザインイメージ" style="width: 100%; height: 100%; object-fit: contain; background: var(--color-background-secondary); position: absolute; inset: 0;" onerror="this.style.display='none'">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 壁② -->
+      <div style="margin-bottom: 56px;">
+        <div style="border-left: 2px solid var(--color-primary); padding-left: 16px; margin-bottom: 24px;">
+          <p class="label">壁 ②</p>
+          <p style="font-size: 16px; font-weight: 700; color: var(--color-text-main); margin-bottom: 8px;">現場運用のブラックボックス化（連携の不透明性）</p>
+          <p style="font-size: 14px; color: var(--color-text-sub); line-height: 1.7;">「会計Plus」と「請求書Plus」の連携において、取引先と請求先をn:1で管理できる仕様があったが、その利用実態や必要性が社内で不透明だった。各製品のPdMですらこの仕様が導入された経緯や、ユーザーがどの程度重要視しているかを把握できておらず、マスタ化にあたってこの複雑な構造を「維持すべき必要なニーズ」なのか「見直しを検討すべき仕様」なのかを判断する必要があった。</p>
+        </div>
+
+        <div style="padding-left: 16px;">
+          <p class="label" style="color: var(--color-primary); margin-bottom: 16px;">やったこと</p>
+
+          <p style="font-size: 14px; font-weight: 500; color: #2F3333; margin-bottom: 8px;">「維持すべきか・見直すべきか」を判断するために利用実態を調査した</p>
+          <p style="font-size: 13px; color: #2F3333; line-height: 1.8; margin-bottom: 24px;">n:1連携について、実際に利用している既存ユーザーをリクルートし、インタビューを通じて運用実態を解明した。</p>
+
+          <!-- 2×2グリッド -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; margin-bottom: 16px;">
+
+            <!-- ① -->
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; gap: 10px; align-items: flex-start;">
+                <div style="width: 22px; height: 22px; border-radius: 50%; background: #EEEDFE; font-size: 11px; font-weight: 500; color: #6366F1; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;">1</div>
+                <p style="font-size: 13px; font-weight: 500; color: #2F3333; line-height: 1.4;">対象ユーザーの属性の洗い出し</p>
+              </div>
+              <p style="font-size: 12px; color: #6B7280; line-height: 1.6;">インタビュー対象としたいユーザーの属性を検討し、対象ユーザーのリストを作成。</p>
+              <div style="aspect-ratio: 16/9; background: var(--color-border); border-radius: 8px; overflow: hidden; position: relative; flex-grow: 1;">
+                <img src="images/work-client-interview-1.png" alt="対象ユーザーの属性の洗い出し" style="width: 100%; height: 100%; object-fit: contain; background: var(--color-background-secondary); position: absolute; inset: 0;" onerror="this.style.display='none'">
+              </div>
+            </div>
+
+            <!-- ② -->
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; gap: 10px; align-items: flex-start;">
+                <div style="width: 22px; height: 22px; border-radius: 50%; background: #EEEDFE; font-size: 11px; font-weight: 500; color: #6366F1; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;">2</div>
+                <p style="font-size: 13px; font-weight: 500; color: #2F3333; line-height: 1.4;">インタビュー精度を高めるための事前アンケート</p>
+              </div>
+              <p style="font-size: 12px; color: #6B7280; line-height: 1.6;">対象ユーザーの運用状況を把握し仮説を立てるため、事前アンケートを作成・送付した上でリクルートを実施した。</p>
+              <div style="aspect-ratio: 16/9; overflow: hidden; border-radius: 8px; position: relative;">
+                <div class="scroll-img-container" style="width: 100%; height: 100%; overflow-y: scroll; overflow-x: hidden;">
+                  <img src="images/work-client-interview-2.jpg" alt="インタビュー精度を高めるための事前アンケート" style="width: 100%; height: auto; display: block;" onerror="this.style.display='none'">
+                </div>
+              </div>
+            </div>
+
+            <!-- ③ -->
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; gap: 10px; align-items: flex-start;">
+                <div style="width: 22px; height: 22px; border-radius: 50%; background: #EEEDFE; font-size: 11px; font-weight: 500; color: #6366F1; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;">3</div>
+                <p style="font-size: 13px; font-weight: 500; color: #2F3333; line-height: 1.4;">仮説検討と企業別スクリプトを作成</p>
+              </div>
+              <p style="font-size: 12px; color: #6B7280; line-height: 1.6;">アンケートの回答から運用実態の仮説を立て、企業ごとの特性に応じた質問設計とスクリプト作成を行った。</p>
+              <div style="aspect-ratio: 16/9; background: var(--color-border); border-radius: 8px; overflow: hidden; position: relative; flex-grow: 1;">
+                <img src="images/work-client-interview-3.png" alt="仮説検討と企業別スクリプトを作成" style="width: 100%; height: 100%; object-fit: contain; background: var(--color-background-secondary); position: absolute; inset: 0;" onerror="this.style.display='none'">
+              </div>
+            </div>
+
+            <!-- ④ -->
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; gap: 10px; align-items: flex-start;">
+                <div style="width: 22px; height: 22px; border-radius: 50%; background: #EEEDFE; font-size: 11px; font-weight: 500; color: #6366F1; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;">4</div>
+                <p style="font-size: 13px; font-weight: 500; color: #2F3333; line-height: 1.4;">ユーザーインタビュー実施</p>
+              </div>
+              <p style="font-size: 12px; color: #6B7280; line-height: 1.6;">約5社へのインタビューを実施し、n:1連携の運用実態を解明した。</p>
+              <div style="aspect-ratio: 16/9; background: var(--color-border); border-radius: 8px; overflow: hidden; position: relative; flex-grow: 1;">
+                <img src="images/work-client-interview-4.png" alt="ユーザーインタビュー実施" style="width: 100%; height: 100%; object-fit: contain; background: var(--color-background-secondary); position: absolute; inset: 0; filter: blur(2px); transform: scale(1.02);" onerror="this.style.display='none'">
+              </div>
+            </div>
+
+          </div>
+
+          <p style="text-align: center; font-size: 16px; color: #6B7280; margin: 16px 0;">↓</p>
+
+          <div style="background: #EEEDFE; border-radius: 8px; padding: 16px 20px;">
+            <p style="font-size: 11px; font-weight: 500; color: #6366F1; margin-bottom: 6px;">データモデルの意思決定に必要な根拠を作った</p>
+            <p style="font-size: 13px; font-weight: 500; color: #3C3489; line-height: 1.7;">n:1連携は一時的な運用回避策であることが判明。「一法人＝一データ」という情報の独立性を担保したデータモデルを採用する根拠を作った。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 壁③ -->
+      <div>
+        <div style="border-left: 2px solid var(--color-primary); padding-left: 16px; margin-bottom: 24px;">
+          <p class="label">壁 ③</p>
+          <p style="font-size: 16px; font-weight: 700; color: var(--color-text-main); margin-bottom: 8px;">前例のない大規模移行</p>
+          <p style="font-size: 14px; color: var(--color-text-sub); line-height: 1.7;">顧客との信頼に大きく関わる重要データを5プロダクト同時に安全に移行させる手法が社内に確立されていなかった。またプロダクトごとに「取引先データへの依存度」や「マスタ化によって得られる恩恵」が異なり、どの順番が最も低リスクで投資対効果が高いかの判断基準もなかった。</p>
+        </div>
+
+        <div style="padding-left: 16px;">
+          <p class="label" style="color: var(--color-primary); margin-bottom: 16px;">やったこと</p>
+
+          <!-- 解決策1 -->
+          <div>
+            <p style="font-size: 14px; font-weight: 500; color: var(--color-text-main); margin-bottom: 12px;">1. 移行順序の比較・検討</p>
+            <div style="padding-left: 8px; display: flex; flex-direction: column;">
+              <p style="font-size: 13px; color: #2F3333; line-height: 1.8; margin-bottom: 20px;">5つのプロダクトをどの順序でマスタへ移行させるべきか、考えうる全ての移行順序パターンを可視化。「ユーザーメリット」と「移行リスク」の2軸からそれぞれのパターンを評価した。</p>
+
+              <div class="eval-grid" style="margin-bottom: 0;">
+                <div>
+                  <p style="font-size: 11px; font-weight: 500; color: #6B7280; letter-spacing: 0.08em; margin-bottom: 10px;">評価軸</p>
+                  <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <div>
+                      <div style="display: flex; gap: 12px; align-items: flex-start; margin-bottom: 4px;">
+                        <div style="width: 22px; height: 22px; border-radius: 50%; background: #EEEDFE; font-size: 11px; font-weight: 500; color: #6366F1; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;">1</div>
+                        <p style="font-size: 13px; font-weight: 500; color: #2F3333; margin-bottom: 4px; line-height: 1.4;">ユーザーメリット</p>
+                      </div>
+                      <p style="font-size: 12px; color: #6B7280; line-height: 1.6; padding-left: 34px;">どの順序なら、早い段階でマスタ化の恩恵（データ一貫性など）を実感できるか。</p>
+                    </div>
+                    <div>
+                      <div style="display: flex; gap: 12px; align-items: flex-start; margin-bottom: 4px;">
+                        <div style="width: 22px; height: 22px; border-radius: 50%; background: #EEEDFE; font-size: 11px; font-weight: 500; color: #6366F1; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;">2</div>
+                        <p style="font-size: 13px; font-weight: 500; color: #2F3333; margin-bottom: 4px; line-height: 1.4;">移行リスク</p>
+                      </div>
+                      <p style="font-size: 12px; color: #6B7280; line-height: 1.6; padding-left: 34px;">万が一の不具合時に、ユーザーの業務停止を最小限に抑えられる順序はどれか。</p>
+                    </div>
+                  </div>
+                </div>
+                <div style="width: 100%; aspect-ratio: 16/9; background: var(--color-border); border-radius: 8px; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center;">
+                  <img src="images/work-client-migration-order.png" alt="移行順序の比較・検討" style="width: 100%; height: 100%; object-fit: contain; background: var(--color-background-secondary); position: absolute; inset: 0;" onerror="this.style.display='none'">
+                </div>
+              </div>
+
+              <p style="text-align: center; font-size: 16px; color: #6B7280; margin: 20px 0;">↓</p>
+
+              <div style="background: #EEEDFE; border-radius: 8px; padding: 16px 20px;">
+                <p style="font-size: 11px; font-weight: 500; color: #6366F1; margin-bottom: 6px;">チーム内の合意形成における判断材料を提供した</p>
+                <p style="font-size: 13px; font-weight: 500; color: #3C3489; line-height: 1.7;">移行リスクを最小限に抑えつつ、最も早くユーザー価値を届けられる理想的な移行順序を可視化。チーム全体での合意形成を促進した。</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="border-top: 0.5px solid #F1F1F1; margin: 32px 0;"></div>
+
+          <!-- 解決策2 -->
+          <div>
+            <p style="font-size: 14px; font-weight: 500; color: var(--color-text-main); margin-bottom: 12px;">2. 移行フローの可視化と要件の先行整理</p>
+            <div style="padding-left: 8px; display: flex; flex-direction: column; gap: 0;">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 0;">
+                <!-- 1段目：移行フローの可視化 -->
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                  <p style="font-size: 11px; font-weight: 500; color: #6B7280; letter-spacing: 0.08em;">移行フローの可視化</p>
+                  <p style="font-size: 13px; color: #2F3333; line-height: 1.8;">ユーザーが「移行の必要性を知る」から「完了する」までの一連の流れを可視化した。</p>
+                  <div style="width: 100%; aspect-ratio: 16/9; background: var(--color-border); border-radius: 8px; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center;">
+                    <img src="images/work-client-migration-flow.png" alt="移行フローの可視化" style="width: 100%; height: 100%; object-fit: contain; background: var(--color-background-secondary); position: absolute; inset: 0;" onerror="this.style.display='none'">
+                  </div>
+                </div>
+                <!-- 2段目：松竹梅の解決案仮説 -->
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                  <p style="font-size: 11px; font-weight: 500; color: #6B7280; letter-spacing: 0.08em;">松竹梅（3段階）の解決案仮説</p>
+                  <p style="font-size: 13px; color: #2F3333; line-height: 1.8;">各プロセスで起こりうる課題に対し、機能の充実度に応じた3段階の解決案仮説を作成。PdMとの議論の叩き台とした。</p>
+                  <div style="width: 100%; aspect-ratio: 16/9; background: var(--color-border); border-radius: 8px; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center;">
+                    <img src="images/work-client-migration-matsu.png" alt="松竹梅の解決案仮説" style="width: 100%; height: 100%; object-fit: contain; background: var(--color-background-secondary); position: absolute; inset: 0;" onerror="this.style.display='none'">
+                  </div>
+                </div>
+              </div>
+
+              <p style="text-align: center; font-size: 16px; color: #6B7280; margin: 20px 0;">↓</p>
+
+              <div style="background: #EEEDFE; border-radius: 8px; padding: 16px 20px;">
+                <p style="font-size: 11px; font-weight: 500; color: #6366F1; margin-bottom: 6px;">将来的な「要件の抜け漏れ」の早期発見</p>
+                <p style="font-size: 13px; font-weight: 500; color: #3C3489; line-height: 1.7;">「移行時にユーザーが迷うポイント」や「システム側で検討が必須となる項目」をPdMと共有。具体的な仕様が固まる前の段階で、将来的に考慮すべき要件の全体像について目線を合わせ、設計の後戻りリスクを最小化した。</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="border-top: 0.5px solid #F1F1F1; margin: 32px 0;"></div>
+
+          <!-- 解決策3 -->
+          <div>
+            <p style="font-size: 14px; font-weight: 500; color: var(--color-text-main); margin-bottom: 12px;">3. 移行操作画面のUI作成と、移行ルールの具体化</p>
+            <div style="padding-left: 8px; display: flex; flex-direction: column; gap: 16px;">
+              <div>
+                <p style="font-size: 13px; color: #2F3333; line-height: 1.8;">複数プロダクトのデータを一つにまとめる際、何を基準に「同じ取引先」とみなすかのルールをデザインを通じて具体化した。</p>
+              </div>
+              <div style="width: 100%; aspect-ratio: 16/9; background: var(--color-border); border-radius: 8px; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center;">
+                <img src="images/work-client-migration-design.png" alt="移行画面のデザイン検討" style="width: 100%; height: 100%; object-fit: contain; background: var(--color-background-secondary); position: absolute; inset: 0; filter: blur(2px); transform: scale(1.02);" onerror="this.style.display='none'">
+              </div>
+              <p style="text-align: center; font-size: 16px; color: #6B7280; margin: 0;">↓</p>
+              <div style="background: #EEEDFE; border-radius: 8px; padding: 16px 20px;">
+                <p style="font-size: 11px; font-weight: 500; color: #6366F1; margin-bottom: 6px;">データ不整合による「誤った移行」の防止</p>
+                <p style="font-size: 13px; font-weight: 500; color: #3C3489; line-height: 1.7;">機械的な統合によるデータの重複や誤登録のリスクを未然に防ぎ、重要データを扱う「移行作業」の安全性を担保する論理的な土台を作ることができた。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- プロジェクトを通して意識したこと -->
+  <section>
+    <div class="section-container section-padding">
+      <h2 class="section-title">プロジェクトを通して意識したこと</h2>
+
+      <div style="display: flex; flex-direction: column; gap: 32px;">
+
+        <div>
+          <p style="font-size: 14px; font-weight: 500; color: var(--color-text-main); margin-bottom: 16px;">議論の「空中分解」を防ぎ、確実に前進させる仕組み作り</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div style="padding: 16px; background-color: #f9f9f9; border-radius: 8px;">
+              <p style="font-size: 12px; font-weight: 500; color: var(--color-text-sub); margin-bottom: 6px;">課題</p>
+              <p style="font-size: 13px; color: var(--color-text-main); line-height: 1.7;">専任担当が自分のみという状況下で、抽象的な議論が先行しがちだった。チームメンバーの記憶の齟齬が生まれやすく、プロジェクトが停滞するリスクがあった。</p>
+            </div>
+            <div style="padding: 16px; background-color: #f9f9f9; border-radius: 8px;">
+              <p style="font-size: 12px; font-weight: 500; color: var(--color-text-sub); margin-bottom: 6px;">行動</p>
+              <p style="font-size: 13px; color: var(--color-text-main); line-height: 1.7;">会議ごとに話した内容、残された不明点、発生した問題点を即座に言語化。次回の会議冒頭で必ず振り返る時間を設け、定期的にロードマップを見直してお互いの目線を揃えた。</p>
+            </div>
+            <div style="padding: 16px; background-color: #f9f9f9; border-radius: 8px;">
+              <p style="font-size: 12px; font-weight: 500; color: var(--color-text-sub); margin-bottom: 6px;">意図</p>
+              <p style="font-size: 13px; color: var(--color-text-main); line-height: 1.7;">立ち止まる時間を最小化することで、プロジェクトが着実に前進し続ける環境を作る。</p>
+            </div>
+          </div>
+          <div style="width: 100%; aspect-ratio: 16/9; background: var(--color-border); border-radius: 8px; overflow: hidden; position: relative;">
+            <img src="images/work-client-discussion.png" alt="議論の空中分解を防ぐ仕組み作り" style="width: 100%; height: 100%; object-fit: contain; background: var(--color-background-secondary); position: absolute; inset: 0;" onerror="this.style.display='none'">
+          </div>
+        </div>
+
+        <div>
+          <p style="font-size: 14px; font-weight: 500; color: var(--color-text-main); margin-bottom: 16px;">自ら仮説を持ってプロジェクトを推進したこと</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+            <div style="padding: 16px; background-color: #f9f9f9; border-radius: 8px;">
+              <p style="font-size: 12px; font-weight: 500; color: var(--color-text-sub); margin-bottom: 6px;">課題</p>
+              <p style="font-size: 13px; color: var(--color-text-main); line-height: 1.7;">要件が固まらない不透明な状況の中で、誰かが先陣を切って検討プロセスを作らなければプロジェクトが動き出せない状態だった。</p>
+            </div>
+            <div style="padding: 16px; background-color: #f9f9f9; border-radius: 8px;">
+              <p style="font-size: 12px; font-weight: 500; color: var(--color-text-sub); margin-bottom: 6px;">行動</p>
+              <p style="font-size: 13px; color: var(--color-text-main); line-height: 1.7;">「どのような検討ステップを踏めば、不透明な状況を打開できるか」という仮説を立て、自ら手を動かして比較表や図解を作成。それらを叩き台として議論を活性化させた。</p>
+            </div>
+            <div style="padding: 16px; background-color: #f9f9f9; border-radius: 8px;">
+              <p style="font-size: 12px; font-weight: 500; color: var(--color-text-sub); margin-bottom: 6px;">意図</p>
+              <p style="font-size: 13px; color: var(--color-text-main); line-height: 1.7;">正解が見えない中でも「まず形にする」ことでチームの思考を具体化させ、受け身ではなく主体的に意思決定のスピードを上げる。</p>
+            </div>
+          </div>
+          <div style="width: 100%; aspect-ratio: 16/9; background: var(--color-border); border-radius: 8px; overflow: hidden; position: relative; margin-top: 16px;">
+            <img src="images/work-client-hypothesis.png" alt="自ら仮説を持ってプロジェクトを推進したこと" style="width: 100%; height: 100%; object-fit: contain; background: var(--color-background-secondary); position: absolute; inset: 0;" onerror="this.style.display='none'">
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Footer -->
+  <footer style="background-color: var(--color-surface); border-top: 1px solid var(--color-border);">
+    <div class="section-container" style="padding-top: 32px; padding-bottom: 32px; display: flex; align-items: center; justify-content: space-between;">
+      <p style="font-size: 14px; color: var(--color-text-sub);">Chinatsu Mikami</p>
+      <a href="https://note.com/chi72dayo" target="_blank" rel="noopener noreferrer"
+         style="font-size: 14px; color: var(--color-text-main); text-decoration: none; transition: color 150ms;"
+         onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color='var(--color-text-main)'">note</a>
+    </div>
+  </footer>
+
+
+</body>
+</html>

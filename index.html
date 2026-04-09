@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>三上千夏 | UI/UXデザイナー ポートフォリオ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',
+              400:'#818cf8',500:'#6366f1',600:'#4f46e5',700:'#4338ca',
+              800:'#3730a3',900:'#312e81',950:'#1e1b4b'
+            }
+          },
+          fontFamily: {
+            sans: ['Noto Sans JP', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    :root {
+      --color-background: #FDFCFB;
+      --color-background-secondary: #F5F5F4;
+      --color-primary: #6366F1;
+      --color-text-main: #2F3333;
+      --color-text-sub: #6B7280;
+      --color-border: #F1F1F1;
+      --color-surface: #FFFFFF;
+    }
+
+    body {
+      background-color: var(--color-background);
+      color: var(--color-text-main);
+      font-family: 'Noto Sans JP', sans-serif;
+      line-height: 1.7;
+    }
+
+    .text-main  { color: var(--color-text-main); }
+    .text-sub   { color: var(--color-text-sub); }
+    .text-primary-var { color: var(--color-primary); }
+    .bg-surface { background-color: var(--color-surface); }
+    .border-theme { border-color: var(--color-border); }
+
+    .card {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+    }
+    .card-hover { transition: border-color 150ms ease; }
+    .card-hover:hover { border-color: var(--color-primary); }
+
+    .section-container {
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 80px;
+      padding-right: 80px;
+    }
+
+    .section-padding {
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
+
+    .badge {
+      background-color: #f3f4f6;
+      color: var(--color-text-sub);
+      padding: 2px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .tag {
+      background-color: #f3f4f6;
+      color: var(--color-text-main);
+      padding: 2px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--color-primary);
+      flex-shrink: 0;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav style="position: sticky; top: 0; z-index: 100; height: 64px; background-color: var(--color-background); display: flex; align-items: center;">
+    <div style="max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 80px; display: flex; align-items: center; justify-content: space-between;">
+      <span style="font-size: 13px; font-weight: 500; color: var(--color-primary); letter-spacing: 0.08em;">CHINATSU MIKAMI</span>
+      <div style="display: flex; align-items: center; gap: 32px;">
+        <a href="#about" style="font-size: 14px; color: var(--color-text-sub); text-decoration: none; transition: color 150ms ease;"
+           onmouseover="this.style.color='var(--color-text-main)'" onmouseout="this.style.color='var(--color-text-sub)'">About</a>
+        <a href="#works" style="font-size: 14px; color: var(--color-text-sub); text-decoration: none; transition: color 150ms ease;"
+           onmouseover="this.style.color='var(--color-text-main)'" onmouseout="this.style.color='var(--color-text-sub)'">Works</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section style="background-color: var(--color-surface); border-bottom: 1px solid var(--color-border); min-height: 680px; display: flex; align-items: center; overflow: hidden;">
+    <div style="max-width: 1200px; margin: 0 auto; width: 100%; display: flex; align-items: center;">
+      <!-- Photo -->
+      <div style="flex-shrink: 0; width: 40%; max-width: 420px; padding-top: 20px; align-self: stretch; display: flex; align-items: flex-start;">
+        <div style="width: 100%; height: 480px; border-radius: 12px; overflow: hidden; background-color: var(--color-border);">
+          <img src="images/profile.png" alt="三上 千夏"
+               style="width: 100%; height: 100%; object-fit: cover; object-position: top;"
+               onerror="this.style.display='none'">
+        </div>
+      </div>
+      <!-- Text -->
+      <div style="flex: 1; padding: 120px 80px 120px 80px; margin-left: -30px; position: relative; z-index: 1; max-width: 480px; min-width: 360px;">
+        <p style="font-size: 13px; font-weight: 500; color: var(--color-text-sub); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px;">UI/UX Designer</p>
+        <h1 style="font-size: 48px; font-weight: 700; color: var(--color-text-main); line-height: 1.1; margin-bottom: 24px; white-space: nowrap;">CHINATSU MIKAMI</h1>
+        <p style="font-size: 17px; font-weight: 400; color: var(--color-text-sub); line-height: 1.8; margin-bottom: 0;">
+          複雑さを整理し、<br><span style="white-space: nowrap;">プロジェクトを前進させるUI/UXデザイナー</span>
+        </p>
+        <p style="margin-top: 20px; font-size: 13px;">
+          <a href="https://note.com/chi72dayo" target="_blank" rel="noopener noreferrer"
+             style="color: var(--color-text-sub); text-decoration: none; transition: color 150ms ease;"
+             onmouseover="this.style.color='var(--color-text-main)'" onmouseout="this.style.color='var(--color-text-sub)'">note</a>
+          <span style="color: var(--color-text-sub); margin: 0 6px;">/</span>
+          <a href="https://www.facebook.com/profile.php?id=100009570510750" target="_blank" rel="noopener noreferrer"
+             style="color: var(--color-text-sub); text-decoration: none; transition: color 150ms ease;"
+             onmouseover="this.style.color='var(--color-text-main)'" onmouseout="this.style.color='var(--color-text-sub)'">Facebook</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- About / Skills -->
+  <section id="about" style="background-color: var(--color-surface); border-bottom: 1px solid var(--color-border);">
+    <div class="section-container section-padding">
+      <h2 style="font-size: 32px; font-weight: 700; color: var(--color-text-main); margin-bottom: 40px;">About</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+
+        <!-- Career -->
+        <div>
+          <h3 style="font-size: 16px; font-weight: 700; color: var(--color-text-main); margin-bottom: 16px;">キャリア</h3>
+          <ul style="display: flex; flex-direction: column; gap: 12px;">
+            <li style="display: flex; gap: 16px; font-size: 14px;">
+              <span style="color: var(--color-text-sub); flex-shrink: 0; width: 80px;">2021年3月</span>
+              <span style="color: var(--color-text-main);">公立はこだて未来大学 システム情報学部 情報デザインコース 卒業</span>
+            </li>
+            <li style="display: flex; gap: 16px; font-size: 14px;">
+              <span style="color: var(--color-text-sub); flex-shrink: 0; width: 80px;">2021年4月</span>
+              <span style="color: var(--color-text-main);">株式会社マネーフォワード 新卒入社</span>
+            </li>
+            <li style="display: flex; gap: 16px; font-size: 14px;">
+              <span style="color: var(--color-text-sub); flex-shrink: 0; width: 80px;">〜2026年2月</span>
+              <span style="color: var(--color-text-main);">BtoB SaaSのUIデザインに従事。主に勤怠管理・マスタ管理画面のデザインを担当。</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Skills -->
+        <div>
+          <h3 style="font-size: 16px; font-weight: 700; color: var(--color-text-main); margin-bottom: 16px;">スキル・ツール</h3>
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div>
+              <p style="font-size: 12px; font-weight: 500; color: var(--color-text-sub); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">デザインツール</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                <span class="tag">Figma（6年）</span>
+                <span class="tag">Illustrator（4年）</span>
+                <span class="tag">Photoshop（4年）</span>
+                <span class="tag">After Effects（1年）</span>
+              </div>
+            </div>
+            <div>
+              <p style="font-size: 12px; font-weight: 500; color: var(--color-text-sub); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">その他ツール</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                <span class="tag">Slack</span>
+                <span class="tag">Miro</span>
+                <span class="tag">Jira</span>
+                <span class="tag">Asana</span>
+                <span class="tag">Claude Code</span>
+                <span class="tag">Stitch</span>
+              </div>
+            </div>
+            <div>
+              <p style="font-size: 12px; font-weight: 500; color: var(--color-text-sub); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">資格</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                <span class="tag">日商簿記3級</span>
+                <span class="tag">TOEIC 650点</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 趣味 -->
+      <div style="margin-top: 40px; padding-top: 40px; border-top: 1px solid var(--color-border);">
+        <h3 style="font-size: 16px; font-weight: 700; color: var(--color-text-main); margin-bottom: 16px;">趣味</h3>
+        <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+          <span style="font-size: 13px; color: var(--color-text-sub);">⛳️ ゴルフ</span>
+          <span style="font-size: 13px; color: var(--color-text-sub);">🍶 お酒とご飯</span>
+          <span style="font-size: 13px; color: var(--color-text-sub);">✈️ 旅行</span>
+          <span style="font-size: 13px; color: var(--color-text-sub);">✍️ お絵描き</span>
+          <span style="font-size: 13px; color: var(--color-text-sub);">📕 漫画</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- My Value -->
+  <section style="background-color: var(--color-surface); border-bottom: 1px solid var(--color-border);">
+    <div class="section-container section-padding">
+      <h2 style="font-size: 32px; font-weight: 700; color: var(--color-text-main); margin-bottom: 40px;">My Value</h2>
+
+      <!-- Core Value -->
+      <div style="margin-bottom: 40px;">
+        <p style="font-size: 11px; font-weight: 500; color: var(--color-text-sub); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px;">Core Value</p>
+        <p style="font-size: 24px; font-weight: 500; color: var(--color-text-main); line-height: 1.4;">複雑な課題を構造化し、ユーザーが当たり前に使えるUIを作る</p>
+      </div>
+
+      <!-- ACTION ラベル -->
+      <p style="font-size: 11px; font-weight: 500; color: #6B7280; letter-spacing: 0.12em; margin-bottom: 16px;">ACTION</p>
+
+      <!-- 2カラムグリッド -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+
+        <!-- カード①：他職種との共創 -->
+        <div style="background: var(--color-background-secondary); border-radius: 12px; padding: 24px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+            <p style="font-size: 14px; font-weight: 500; color: #2F3333;">他職種との共創</p>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div>
+              <p style="font-size: 13px; font-weight: 500; color: #2F3333; margin-bottom: 4px;">要件の可視化の推進</p>
+              <p style="font-size: 12px; color: #6B7280; line-height: 1.6;">言語化しきれない要件を、PdMとの会話から素早くプロトタイプで具体化し、認識のズレをゼロにしながら要件を整理します。</p>
+            </div>
+            <div>
+              <p style="font-size: 13px; font-weight: 500; color: #2F3333; margin-bottom: 4px;">実装を考慮したUI設計</p>
+              <p style="font-size: 12px; color: #6B7280; line-height: 1.6;">エンジニアが迷わず実装できるUIデザインのデータを構築します。</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- カード②：ユーザーフォーカスなUI設計 -->
+        <div style="background: var(--color-background-secondary); border-radius: 12px; padding: 24px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <path d="M3 9h18M9 21V9"/>
+            </svg>
+            <p style="font-size: 14px; font-weight: 500; color: #2F3333;">ユーザーフォーカスなUI設計</p>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div>
+              <p style="font-size: 13px; font-weight: 500; color: #2F3333; margin-bottom: 4px;">本質的なニーズの探究</p>
+              <p style="font-size: 12px; color: #6B7280; line-height: 1.6;">ヒアリングから本質的な課題を抽出し、プロダクトの進むべき方向性を検証します。</p>
+            </div>
+            <div>
+              <p style="font-size: 13px; font-weight: 500; color: #2F3333; margin-bottom: 4px;">説明できるUIを作る</p>
+              <p style="font-size: 12px; color: #6B7280; line-height: 1.6;">なぜこのUIを採用したかを論理的に説明できる設計を行います。感覚ではなく根拠のある判断を積み重ねます。</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Works -->
+  <section id="works">
+    <div class="section-container section-padding">
+      <h2 style="font-size: 32px; font-weight: 700; color: var(--color-text-main); margin-bottom: 40px;">Works</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- Card 1 -->
+        <a href="work-project-master.html" class="card card-hover overflow-hidden" style="display: block; text-decoration: none;">
+          <img src="images/thumb-pjm.png" alt="プロジェクト管理基盤統合" style="width: 100%; height: 176px; object-fit: cover; display: block;">
+          <div style="padding: 24px;">
+            <h3 style="font-size: 16px; font-weight: 700; color: var(--color-text-main); margin-bottom: 8px;">プロジェクト管理基盤統合</h3>
+            <p style="font-size: 14px; color: var(--color-text-sub); line-height: 1.7; margin-bottom: 16px;">複数プロダクトに分散していたプロジェクト管理画面を統合。要件策定からUI設計・合意形成まで推進。</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+              <span class="tag">UI Design</span>
+              <span class="tag">情報設計</span>
+              <span class="tag">ファシリテーション</span>
+              <span class="tag">ユーザビリティテスト</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 2 -->
+        <a href="work-client-master.html" class="card card-hover overflow-hidden" style="display: block; text-decoration: none;">
+          <img src="images/thumb-client.png" alt="取引先マスタ移行要件" style="width: 100%; height: 176px; object-fit: cover; display: block;">
+          <div style="padding: 24px;">
+            <h3 style="font-size: 16px; font-weight: 700; color: var(--color-text-main); margin-bottom: 8px;">取引先マスタ移行要件</h3>
+            <p style="font-size: 14px; color: var(--color-text-sub); line-height: 1.7; margin-bottom: 16px;">複数アプリケーションに跨る取引先マスタの統合に向けた移行要件整理とUI設計。</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+              <span class="tag">UI Design</span>
+              <span class="tag">要件定義</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 3 -->
+        <a href="work-timecard.html" class="card card-hover overflow-hidden" style="display: block; text-decoration: none;">
+          <img src="images/thumb-timecard.png" alt="打刻画面リニューアル" style="width: 100%; height: 176px; object-fit: cover; display: block;">
+          <div style="padding: 24px;">
+            <h3 style="font-size: 16px; font-weight: 700; color: var(--color-text-main); margin-bottom: 8px;">打刻画面リニューアル</h3>
+            <p style="font-size: 14px; color: var(--color-text-sub); line-height: 1.7; margin-bottom: 16px;">問い合わせデータを起点に課題を構造化。ユーザビリティテストを経て打刻画面を全面リニューアル。</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+              <span class="tag">UX Research</span>
+              <span class="tag">ユーザビリティテスト</span>
+              <span class="tag">UI Design</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 4 Coming Soon -->
+        <div class="card overflow-hidden" style="opacity: 0.5; cursor: not-allowed;">
+          <div style="width: 100%; height: 176px; background-color: #f3f4f6;"></div>
+          <div style="padding: 24px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+              <h3 style="font-size: 16px; font-weight: 700; color: var(--color-text-main);">Coming Soon</h3>
+              <span class="badge">準備中</span>
+            </div>
+            <p style="font-size: 14px; color: var(--color-text-sub);">現在準備中です。</p>
+          </div>
+        </div>
+
+        <!-- Card 5 Coming Soon -->
+        <div class="card overflow-hidden" style="opacity: 0.5; cursor: not-allowed;">
+          <div style="width: 100%; height: 176px; background-color: #f3f4f6;"></div>
+          <div style="padding: 24px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+              <h3 style="font-size: 16px; font-weight: 700; color: var(--color-text-main);">Coming Soon</h3>
+              <span class="badge">準備中</span>
+            </div>
+            <p style="font-size: 14px; color: var(--color-text-sub);">現在準備中です。</p>
+          </div>
+        </div>
+
+        <!-- Card 6 Coming Soon -->
+        <div class="card overflow-hidden" style="opacity: 0.5; cursor: not-allowed;">
+          <div style="width: 100%; height: 176px; background-color: #f3f4f6;"></div>
+          <div style="padding: 24px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+              <h3 style="font-size: 16px; font-weight: 700; color: var(--color-text-main);">Coming Soon</h3>
+              <span class="badge">準備中</span>
+            </div>
+            <p style="font-size: 14px; color: var(--color-text-sub);">現在準備中です。</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Other Activities -->
+  <section>
+    <div class="section-container" style="padding-bottom: 80px;">
+      <h2 style="font-size: 32px; font-weight: 700; color: var(--color-text-main); margin-bottom: 40px;">Other Activities</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- Activity 1 -->
+        <div class="card overflow-hidden" style="opacity: 0.5; cursor: not-allowed;">
+          <div style="width: 100%; height: 176px; background-color: #f3f4f6;"></div>
+          <div style="padding: 24px;">
+            <div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+              <h3 style="font-size: 16px; font-weight: 700; color: var(--color-text-main);">ベトナムメンバーとのチームビルディング推進</h3>
+              <span class="badge" style="flex-shrink: 0;">準備中</span>
+            </div>
+            <p style="font-size: 14px; color: var(--color-text-sub);">現在準備中です。</p>
+          </div>
+        </div>
+
+        <!-- Activity 2 -->
+        <div class="card overflow-hidden" style="opacity: 0.5; cursor: not-allowed;">
+          <div style="width: 100%; height: 176px; background-color: #f3f4f6;"></div>
+          <div style="padding: 24px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+              <h3 style="font-size: 16px; font-weight: 700; color: var(--color-text-main);">デザイナー総会運営</h3>
+              <span class="badge">準備中</span>
+            </div>
+            <p style="font-size: 14px; color: var(--color-text-sub);">現在準備中です。</p>
+          </div>
+        </div>
+
+        <!-- Activity 3 -->
+        <div class="card overflow-hidden" style="opacity: 0.5; cursor: not-allowed;">
+          <div style="width: 100%; height: 176px; background-color: #f3f4f6;"></div>
+          <div style="padding: 24px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+              <h3 style="font-size: 16px; font-weight: 700; color: var(--color-text-main);">デザイン室ラジオ</h3>
+              <span class="badge">準備中</span>
+            </div>
+            <p style="font-size: 14px; color: var(--color-text-sub);">現在準備中です。</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="background-color: var(--color-surface); border-top: 1px solid var(--color-border);">
+    <div class="section-container" style="padding-top: 32px; padding-bottom: 32px; display: flex; align-items: center; justify-content: space-between;">
+      <p style="font-size: 14px; color: var(--color-text-sub);">Chinatsu Mikami</p>
+    </div>
+  </footer>
+
+</body>
+</html>
