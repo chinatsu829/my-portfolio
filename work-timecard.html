@@ -131,13 +131,31 @@
       color: var(--color-text-sub);
       margin-top: 2px;
     }
+
+    @media (max-width: 768px) {
+      .section-container {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+      .nav-inner {
+        padding-left: 24px !important;
+        padding-right: 24px !important;
+      }
+      .section-padding {
+        padding-top: 48px !important;
+        padding-bottom: 48px !important;
+      }
+      .two-col-grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
   </style>
 </head>
 <body>
 
   <!-- Nav -->
   <nav style="position: sticky; top: 0; z-index: 100; height: 64px; background-color: var(--color-background); display: flex; align-items: center;">
-    <div style="max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 80px; display: flex; align-items: center; justify-content: space-between;">
+    <div class="nav-inner" style="max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 80px; display: flex; align-items: center; justify-content: space-between;">
       <a href="index.html" style="font-size: 13px; font-weight: 500; color: var(--color-primary); letter-spacing: 0.08em; text-decoration: none;">CHINATSU MIKAMI</a>
       <div style="display: flex; align-items: center; gap: 32px;">
         <a href="index.html#about" style="font-size: 14px; color: var(--color-text-sub); text-decoration: none; transition: color 150ms ease;"
@@ -196,7 +214,7 @@
     <div class="section-container section-padding">
       <h2 class="section-title">成果物</h2>
 
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div class="two-col-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
 
         <!-- Before -->
         <div>
@@ -254,7 +272,7 @@
           <p style="font-size: 14px; color: var(--color-text-sub); line-height: 1.8;">
             CJM（カスタマージャーニーマップ）とUSM（ユーザーストーリーマップ）を作成し、プロジェクトのキックオフでエンジニアも含めたチーム全体に共有した。
           </p>
-          <div style="padding-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="two-col-grid" style="padding-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
             <div style="width: 100%; aspect-ratio: 16/9; background: var(--color-border); border-radius: 8px; overflow: hidden; position: relative;"><img src="images/work-timecard-process2-cjm.png" alt="CJM" style="width: 100%; height: 100%; object-fit: contain; background: var(--color-background-secondary); position: absolute; inset: 0;" onerror="this.style.display='none'"></div>
             <div style="width: 100%; aspect-ratio: 16/9; background: var(--color-border); border-radius: 8px; overflow: hidden; position: relative;"><img src="images/work-timecard-process2-usm.png" alt="USM" style="width: 100%; height: 100%; object-fit: contain; background: var(--color-background-secondary); position: absolute; inset: 0;" onerror="this.style.display='none'"></div>
 
@@ -278,7 +296,7 @@
           <p style="font-size: 14px; color: var(--color-text-sub); line-height: 1.8;">
             「正しい打刻ができない」問題を深掘りし、解決策を言語化したうえでデザイン案を作成。PdMとの議論やチームレビュー、ユーザビリティテストを経て絞り込みを繰り返しながら計約20案を検討した。
           </p>
-          <div style="padding-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="two-col-grid" style="padding-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
             <div style="width: 100%; aspect-ratio: 16/9; background: var(--color-border); border-radius: 8px; overflow: hidden; position: relative;"><img src="images/work-timecard-process3-figma.png" alt="Figmaデザイン案" style="width: 100%; height: 100%; object-fit: contain; background: var(--color-background-secondary); position: absolute; inset: 0;" onerror="this.style.display='none'"></div>
             <div style="width: 100%; aspect-ratio: 16/9; background: var(--color-border); border-radius: 8px; overflow: hidden; position: relative;"><img src="images/work-timecard-process3-figma2.png" alt="Figmaデザイン案2" style="width: 100%; height: 100%; object-fit: contain; background: var(--color-background-secondary); position: absolute; inset: 0;" onerror="this.style.display='none'"></div>
 
@@ -347,7 +365,7 @@
   <section style="background-color: var(--color-background);">
     <div class="section-container section-padding">
       <h2 class="section-title">学び・振り返り</h2>
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 900px;">
+      <div class="two-col-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 900px;">
 
         <div style="padding: 24px; background-color: var(--color-surface); border-radius: 8px; border: 1px solid var(--color-border);">
           <p style="font-size: 14px; font-weight: 700; color: var(--color-text-main); margin-bottom: 12px;">USMの重要性</p>

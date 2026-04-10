@@ -98,13 +98,43 @@
       flex-shrink: 0;
       margin-top: 8px;
     }
+
+    @media (max-width: 768px) {
+      .section-container {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+      .nav-inner {
+        padding-left: 24px !important;
+        padding-right: 24px !important;
+      }
+      .section-padding {
+        padding-top: 48px !important;
+        padding-bottom: 48px !important;
+      }
+      .two-col-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .hero-section {
+        min-height: unset !important;
+      }
+      .hero-photo {
+        display: none !important;
+      }
+      .hero-text {
+        padding: 48px 24px !important;
+        margin-left: 0 !important;
+        max-width: 100% !important;
+        min-width: unset !important;
+      }
+    }
   </style>
 </head>
 <body>
 
   <!-- Nav -->
   <nav style="position: sticky; top: 0; z-index: 100; height: 64px; background-color: var(--color-background); display: flex; align-items: center;">
-    <div style="max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 80px; display: flex; align-items: center; justify-content: space-between;">
+    <div class="nav-inner" style="max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 80px; display: flex; align-items: center; justify-content: space-between;">
       <a href="index.html" style="font-size: 13px; font-weight: 500; color: var(--color-primary); letter-spacing: 0.08em; text-decoration: none;">CHINATSU MIKAMI</a>
       <div style="display: flex; align-items: center; gap: 32px;">
         <a href="index.html#about" style="font-size: 14px; color: var(--color-text-sub); text-decoration: none; transition: color 150ms ease;"
@@ -116,10 +146,10 @@
   </nav>
 
   <!-- Hero -->
-  <section style="background-color: var(--color-surface); border-bottom: 1px solid var(--color-border); min-height: 680px; display: flex; align-items: center; overflow: hidden;">
-    <div style="max-width: 1200px; margin: 0 auto; width: 100%; display: flex; align-items: center;">
+  <section class="hero-section" style="background-color: var(--color-surface); border-bottom: 1px solid var(--color-border); min-height: 680px; display: flex; align-items: center; overflow: hidden;">
+    <div class="hero-inner" style="max-width: 1200px; margin: 0 auto; width: 100%; display: flex; align-items: center;">
       <!-- Photo -->
-      <div style="flex-shrink: 0; width: 40%; max-width: 420px; padding-top: 20px; align-self: stretch; display: flex; align-items: flex-start;">
+      <div class="hero-photo" style="flex-shrink: 0; width: 40%; max-width: 420px; padding-top: 20px; align-self: stretch; display: flex; align-items: flex-start;">
         <div style="width: 100%; height: 480px; border-radius: 12px; overflow: hidden; background-color: var(--color-border);">
           <img src="images/profile.png" alt="三上 千夏"
                style="width: 100%; height: 100%; object-fit: cover; object-position: top;"
@@ -127,7 +157,7 @@
         </div>
       </div>
       <!-- Text -->
-      <div style="flex: 1; padding: 120px 80px 120px 80px; margin-left: -30px; position: relative; z-index: 1; max-width: 480px; min-width: 360px;">
+      <div class="hero-text" style="flex: 1; padding: 120px 80px 120px 80px; margin-left: -30px; position: relative; z-index: 1; max-width: 480px; min-width: 360px;">
         <p style="font-size: 13px; font-weight: 500; color: var(--color-text-sub); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px;">UI/UX Designer</p>
         <h1 style="font-size: 48px; font-weight: 700; color: var(--color-text-main); line-height: 1.1; margin-bottom: 24px; white-space: nowrap;">CHINATSU MIKAMI</h1>
         <p style="font-size: 17px; font-weight: 400; color: var(--color-text-sub); line-height: 1.8; margin-bottom: 0;">
@@ -237,7 +267,7 @@
       <p style="font-size: 11px; font-weight: 500; color: #6B7280; letter-spacing: 0.12em; margin-bottom: 16px;">ACTION</p>
 
       <!-- 2カラムグリッド -->
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div class="two-col-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
 
         <!-- カード①：他職種との共創 -->
         <div style="background: var(--color-background-secondary); border-radius: 12px; padding: 24px;">
